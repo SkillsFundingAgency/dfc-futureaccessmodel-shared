@@ -1,0 +1,26 @@
+variables:
+    ArmTemplateRoot: '$(Build.SourcesDirectory)\Resources\ArmTemplates'
+    SolutionBaseName: 'Dfc.FutureAccessModel.Shared'
+
+resources:
+  repositories:
+  - repository: self
+  - repository: dfc-devops
+    type: github
+    name: SkillsFundingAgency/dfc-devops
+    ref: refs/tags/v1.9.1
+    endpoint: 'GitHub (ESFA)'
+
+stages:
+- stage: Build
+  displayName: Test and Publish ARM Template
+  jobs:
+  - job: TestAndPublish
+    pool:
+      name: NCS - CI and CD
+    steps:
+    - template: AzureDevOpsTemplates/Build/StepTemplates/dfc-arm-build.yml@dfc-devops
+      parameters:
+        ArmTemplateRoot: $(ArmTemplateRoot)
+        SolutionBaseName: $(SolutionBaseName)
+        PublishPipelineArtifact: true
