@@ -31,7 +31,7 @@ stages:
   - group: dfc-shared-all
   - group: dfc-futureaccessmodel-shared-all
   - group: dfc-shared-dev
-  - group: dfc-futureaccessmode-shared-dev
+  - group: dfc-futureaccessmodel-shared-dev
   - template: VariableTemplates\DevEnvironmentVariables.yml
   jobs:
   - deployment: DeployTo_DEV
@@ -45,7 +45,7 @@ stages:
           - template: AzureDevOpsTemplates/Deploy/StepTemplates/dfc-arm-deploy.yml@dfc-devops
             parameters:
               ArmTemplateRoot: '$(Pipeline.Workspace)/Dfc.FutureAccessModel.Shared.Resources.ArmTemplates'
-              AzureSubscription: $(AzureSubscriptionServiceConnection)
+              AzureSubscription: ${{ variables.AzureSubscriptionServiceConnection }}
               EnvironmentTag: $(EnvironmentTag)
               ParentBusinessTag: $(ParentBusiness)
               ResourceGroup: $(ResourceGroup)
