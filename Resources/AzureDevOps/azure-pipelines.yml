@@ -24,3 +24,29 @@ stages:
         ArmTemplateRoot: $(ArmTemplateRoot)
         SolutionBaseName: $(SolutionBaseName)
         PublishPipelineArtifact: true
+
+- stage: DeployTo_DEV
+  displayName: Deploy ARM resources to DEV_FUTUREACCESSMODEL environment
+  variables:
+  - group: dfc-shared-all
+  - group: dfc-futureaccessmodel-shared-all
+  - group: dfc-shared-dev
+  - group: dfc-futureaccessmode-shared-dev
+  - template: VariableTemplates\DevEnvironmentVariables.yml
+  jobs:
+  - deployment: DeployTo_DEV
+    pool:
+      name: 'NCS - CI and CD'
+    environment: DEV_FUTUREACCESSMODEL
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: AzureDevOpsTemplates/Deploy/StepTemplates/dfc-arm-deploy.yml@dfc-devops
+            parameters:
+              ArmTemplateRoot: '$(Pipeline.Workspace)/Dfc.FutureAccessModel.Shared.Resources.ArmTemplates'
+              AzureSubscription: $(AzureSubscriptionServiceConnection)
+              EnvironmentTag: $(EnvironmentTag)
+              ParentBusinessTag: $(ParentBusiness)
+              ResourceGroup: $(ResourceGroup)
+              ServiceOfferingTag: $(ServiceOffering)
