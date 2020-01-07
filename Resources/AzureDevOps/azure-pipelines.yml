@@ -1,6 +1,10 @@
 variables:
-    ArmTemplateRoot: '$(Build.SourcesDirectory)\Resources\ArmTemplates'
-    SolutionBaseName: 'Dfc.FutureAccessModel.Shared'
+- name: ArmTemplateRoot
+  value: '$(Build.SourcesDirectory)\Resources\ArmTemplates'
+- name: SolutionBaseName
+  value: 'Dfc.FutureAccessModel.Shared'
+- group: dfc-shared-all
+- group: dfc-futureaccessmodel-shared-all
 
 resources:
   repositories:
@@ -28,8 +32,6 @@ stages:
 - stage: DeployTo_DEV
   displayName: Deploy ARM resources to DEV_FUTUREACCESSMODEL environment
   variables:
-  - group: dfc-shared-all
-  - group: dfc-futureaccessmodel-shared-all
   - group: dfc-shared-dev
   - group: dfc-futureaccessmodel-shared-dev
   - template: VariableTemplates\DevEnvironmentVariables.yml
@@ -54,8 +56,6 @@ stages:
 - stage: DeployTo_SIT
   displayName: Deploy ARM resources to SIT_FUTUREACCESSMODEL environment
   variables:
-  - group: dfc-shared-all
-  - group: dfc-futureaccessmodel-shared-all
   - group: dfc-shared-sit
   - group: dfc-futureaccessmodel-shared-sit
   - template: VariableTemplates\SitEnvironmentVariables.yml
