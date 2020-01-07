@@ -45,7 +45,7 @@ stages:
           - template: AzureDevOpsTemplates/Deploy/StepTemplates/dfc-arm-deploy.yml@dfc-devops
             parameters:
               ArmTemplateRoot: '$(Pipeline.Workspace)/Dfc.FutureAccessModel.Shared.Resources.ArmTemplates'
-              AzureSubscription: ${{ variables.AzureSubscriptionServiceConnection }}
+              AzureSubscription: 'SFA-CDH-Dev/Test (962cae10-2950-412a-93e3-d8ae92b17896)'
               EnvironmentTag: $(EnvironmentTag)
               ParentBusinessTag: $(ParentBusiness)
               ResourceGroup: $(ResourceGroup)
