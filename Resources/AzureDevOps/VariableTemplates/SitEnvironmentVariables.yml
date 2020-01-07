@@ -6,4 +6,4 @@ variables:
 - name: AspTier
   value: Standard
 - name: ReleaseEnvironmentName
-  value: DEV
+  value: SIT
