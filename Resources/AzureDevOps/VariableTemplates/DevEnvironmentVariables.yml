@@ -5,5 +5,7 @@ variables:
   value: 1
 - name: AspTier
   value: Standard
+- name: ReleaseEnvironmentName
+  value: DEV
 - name: ResourceGroup
   value: dfc-dev-fam-shared-rg
