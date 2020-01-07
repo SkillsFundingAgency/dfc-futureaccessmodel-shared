@@ -9,7 +9,7 @@
             "value": "__aseResourceGroup__"
         },
         "aspInstances": {
-            "value": "__AspInstances__"
+            "value": __AspInstances__
         },
         "aspSize": {
             "value": "__AspSize__"

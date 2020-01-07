@@ -11,7 +11,7 @@
             "defaultValue": ""
         },
         "aspInstances": {
-            "type": "string"
+            "type": "int"
         },
         "aspSize": {
             "type": "string"
