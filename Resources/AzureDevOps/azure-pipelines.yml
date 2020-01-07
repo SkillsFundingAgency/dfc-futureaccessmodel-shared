@@ -31,6 +31,7 @@ stages:
 
 - stage: DeployTo_DEV
   displayName: Deploy ARM resources to DEV_FUTUREACCESSMODEL environment
+  condition: ne(variables['Build.Reason'], 'PullRequest')
   variables:
   - group: dfc-shared-dev
   - group: dfc-futureaccessmodel-shared-dev
@@ -43,6 +44,7 @@ stages:
 
 - stage: DeployTo_SIT
   displayName: Deploy ARM resources to SIT_FUTUREACCESSMODEL environment
+  condition: ne(variables['Build.Reason'], 'PullRequest')
   variables:
   - group: dfc-shared-sit
   - group: dfc-futureaccessmodel-shared-sit
