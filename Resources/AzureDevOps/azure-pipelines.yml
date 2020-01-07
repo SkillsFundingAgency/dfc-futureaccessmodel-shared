@@ -1,6 +1,10 @@
 variables:
-    ArmTemplateRoot: '$(Build.SourcesDirectory)\Resources\ArmTemplates'
-    SolutionBaseName: 'Dfc.FutureAccessModel.Shared'
+- name: ArmTemplateRoot
+  value: '$(Build.SourcesDirectory)\Resources\ArmTemplates'
+- name: SolutionBaseName
+  value: 'Dfc.FutureAccessModel.Shared'
+- group: dfc-shared-all
+- group: dfc-futureaccessmodel-shared-all
 
 resources:
   repositories:
@@ -24,3 +28,29 @@ stages:
         ArmTemplateRoot: $(ArmTemplateRoot)
         SolutionBaseName: $(SolutionBaseName)
         PublishPipelineArtifact: true
+
+- stage: DeployTo_DEV
+  displayName: Deploy ARM resources to DEV_FUTUREACCESSMODEL environment
+  condition: ne(variables['Build.Reason'], 'PullRequest')
+  variables:
+  - group: dfc-shared-dev
+  - group: dfc-futureaccessmodel-shared-dev
+  - template: VariableTemplates\DevEnvironmentVariables.yml
+  jobs:
+  - template: JobTemplates/Deploy.yml
+    parameters:
+      AzureSubscription: 'SFA-CDH-Dev/Test (962cae10-2950-412a-93e3-d8ae92b17896)'
+      Environment: DEV_FUTUREACCESSMODEL
+
+- stage: DeployTo_SIT
+  displayName: Deploy ARM resources to SIT_FUTUREACCESSMODEL environment
+  condition: ne(variables['Build.Reason'], 'PullRequest')
+  variables:
+  - group: dfc-shared-sit
+  - group: dfc-futureaccessmodel-shared-sit
+  - template: VariableTemplates\SitEnvironmentVariables.yml
+  jobs:
+  - template: JobTemplates/Deploy.yml
+    parameters:
+      AzureSubscription: 'SFA-CDH-Dev/Test (962cae10-2950-412a-93e3-d8ae92b17896)'
+      Environment: SIT_FUTUREACCESSMODEL
