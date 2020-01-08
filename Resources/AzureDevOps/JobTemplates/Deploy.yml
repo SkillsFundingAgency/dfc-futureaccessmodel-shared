@@ -22,7 +22,7 @@ jobs:
           displayName: 'Azure PowerShell Script: Test-CosmosDbDatabaseDoesntExist'
           inputs:
             azureSubscription: ${{ parameters.AzureSubscription }}
-            ScriptPath: '$(System.DefaultWorkingDirectory)/_SkillsFundingAgency_dfc-devops/PSScripts/Test-CosmosDbDatabaseDoesntExist.ps1'
+            ScriptPath: '$(Agent.BuildDirectory)/dfc-devops/PSScripts/Test-CosmosDbDatabaseDoesntExist.ps1'
             ScriptArguments: '-ResourceGroup ${{ parameters.ResourceGroup }}  -CosmosDbAccountName ${{ parameters.CosmosDbAccountName }} -DatabaseName "dfc-prime-contractor-areas-db"'
             azurePowerShellVersion: LatestVersion
         - template: AzureDevOpsTemplates/Deploy/StepTemplates/dfc-arm-deploy.yml@dfc-devops
