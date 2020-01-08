@@ -9,7 +9,7 @@ variables:
 resources:
   repositories:
   - repository: self
-  - repository: dfc-devops
+  - repository: DfcDevops
     type: github
     name: SkillsFundingAgency/dfc-devops
     ref: refs/tags/v1.9.1
@@ -23,7 +23,7 @@ stages:
     pool:
       name: NCS - CI and CD
     steps:
-    - template: AzureDevOpsTemplates/Build/StepTemplates/dfc-arm-build.yml@dfc-devops
+    - template: AzureDevOpsTemplates/Build/StepTemplates/dfc-arm-build.yml@DfcDevops
       parameters:
         ArmTemplateRoot: $(ArmTemplateRoot)
         SolutionBaseName: $(SolutionBaseName)
