@@ -9,7 +9,7 @@ parameters:
   ServiceOfferingTag: $(ServiceOffering)
 
 jobs:
-- job: DeployTo_${{ parameters.Environment }}
+- deployment: DeployTo_${{ parameters.Environment }}
   pool:
     name: 'NCS - CI and CD'
   environment: ${{ parameters.Environment }}
