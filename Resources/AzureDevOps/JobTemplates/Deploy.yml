@@ -1,5 +1,6 @@
 parameters:
   AzureSubscription: ''
+  CosmosDbAccountName: ''
   Environment: ''
   ArmTemplateRoot: '$(Pipeline.Workspace)/Dfc.FutureAccessModel.Shared.Resources.ArmTemplates'
   EnvironmentTag: $(EnvironmentTag)
@@ -16,6 +17,14 @@ jobs:
     runOnce:
       deploy:
         steps:
+        - checkout: dfc-devops
+        - task: AzurePowerShell@4
+          displayName: 'Azure PowerShell Script: Test-CosmosDbDatabaseDoesntExist'
+          inputs:
+            azureSubscription: ${{ parameters.AzureSubscription }}
+            ScriptPath: '$(System.DefaultWorkingDirectory)/_SkillsFundingAgency_dfc-devops/PSScripts/Test-CosmosDbDatabaseDoesntExist.ps1'
+            ScriptArguments: '-ResourceGroup ${{ parameters.ResourceGroup }}  -CosmosDbAccountName ${{ parameters.CosmosDbAccountName }} -DatabaseName "dfc-prime-contractor-areas-db"'
+            azurePowerShellVersion: LatestVersion
         - template: AzureDevOpsTemplates/Deploy/StepTemplates/dfc-arm-deploy.yml@dfc-devops
           parameters:
             ArmTemplateRoot: ${{ parameters.ArmTemplateRoot }}

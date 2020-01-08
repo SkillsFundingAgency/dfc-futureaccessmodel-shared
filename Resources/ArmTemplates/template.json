@@ -18,7 +18,13 @@
         },
         "aspTier": {
             "type": "string"
-        },                                
+        },
+        "cosmosDatabaseNeedsCreation": {
+            "type": "bool"
+        },
+        "cosmosDatabaseThroughput": {
+            "type": "int"
+        },
         "environment": {
             "type": "string"
         }
@@ -26,6 +32,7 @@
     "variables": {
         "appServicePlanName": "[concat(variables('resourcePrefix'), '-asp')]",
         "cosmosDbAccountName": "[concat(variables('resourcePrefix'), '-cdb')]",
+        "cosmosDatabaseName": "dfc-prime-contractor-areas-db",
         "deploymentUrlBase": "https://raw.githubusercontent.com/SkillsFundingAgency/dfc-devops/master/ArmTemplates/",
         "resourcePrefix": "[tolower(concat('dfc-', parameters('environment'), '-fam-shared'))]",
         "storageAccountName": "[tolower(concat('dfc', parameters('environment'), 'famsharedstr'))]"
@@ -82,6 +89,38 @@
                     },
                     "defaultConsistencyLevel": {
                         "value": "Strong"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "[variables('cosmosDatabaseName')]",
+            "type": "Microsoft.Resources/deployments",
+            "dependsOn": [
+                "[variables('cosmosDbAccountName')]"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('deploymentUrlBase'),'CosmosDb/cosmos-database.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "accountName": {
+                        "value": "[variables('cosmosDbAccountName')]"
+                    },
+                    "databaseName": {
+                        "value": "[variables('cosmosDatabaseName')]"
+                    },
+                    "databaseNeedsCreation": {
+                        "value": "[bool(parameters('cosmosDatabaseNeedsCreation'))]"
+                    },
+                    "offerThroughput": {
+                        "value": "[int(parameters('cosmosDatabaseThroughput'))]"
+                    },
+                    "useSharedRequestUnits": {
+                        "value": true
                     }
                 }
             }
