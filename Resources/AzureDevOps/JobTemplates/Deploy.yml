@@ -14,8 +14,8 @@ jobs:
     name: 'NCS - CI and CD'
   environment: ${{ parameters.Environment }}
   variables: 
-  - TestCosmosDbDatabaseDoesntExistScriptUrl: https://raw.githubusercontent.com/SkillsFundingAgency/dfc-devops/master/PSScripts/Test-CosmosDbDatabaseDoesntExist.ps1
-  - TestCosmosDbDatabaseDoesntExistScriptFilePath: $(System.DefaultWorkingDirectory)\Test-CosmosDbDatabaseDoesntExist.ps1
+    TestCosmosDbDatabaseDoesntExistScriptUrl: https://raw.githubusercontent.com/SkillsFundingAgency/dfc-devops/master/PSScripts/Test-CosmosDbDatabaseDoesntExist.ps1
+    TestCosmosDbDatabaseDoesntExistScriptFilePath: $(System.DefaultWorkingDirectory)\Test-CosmosDbDatabaseDoesntExist.ps1
   strategy:
     runOnce:
       deploy:
