@@ -5,5 +5,7 @@ variables:
   value: 1
 - name: AspTier
   value: Standard
+- name: CosmosDatabaseThroughput
+  value: 400
 - name: ReleaseEnvironmentName
   value: SIT
