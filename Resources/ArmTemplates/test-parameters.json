@@ -11,6 +11,12 @@
         "aspTier": {
             "value": "Standard"
         },
+        "cosmosDatabaseNeedsCreation": {
+            "value": false
+        },
+        "cosmosDatabaseThroughput": {
+            "value": 400
+        },
         "environment": {
             "value": "FOO"
         }

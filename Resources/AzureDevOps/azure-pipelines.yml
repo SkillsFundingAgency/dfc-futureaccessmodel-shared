@@ -9,7 +9,7 @@ variables:
 resources:
   repositories:
   - repository: self
-  - repository: dfc-devops
+  - repository: DfcDevops
     type: github
     name: SkillsFundingAgency/dfc-devops
     ref: refs/tags/v1.9.1
@@ -23,7 +23,7 @@ stages:
     pool:
       name: NCS - CI and CD
     steps:
-    - template: AzureDevOpsTemplates/Build/StepTemplates/dfc-arm-build.yml@dfc-devops
+    - template: AzureDevOpsTemplates/Build/StepTemplates/dfc-arm-build.yml@DfcDevops
       parameters:
         ArmTemplateRoot: $(ArmTemplateRoot)
         SolutionBaseName: $(SolutionBaseName)
@@ -31,7 +31,7 @@ stages:
 
 - stage: DeployTo_DEV
   displayName: Deploy ARM resources to DEV_FUTUREACCESSMODEL environment
-  condition: ne(variables['Build.Reason'], 'PullRequest')
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
   variables:
   - group: dfc-shared-dev
   - group: dfc-futureaccessmodel-shared-dev
@@ -40,11 +40,12 @@ stages:
   - template: JobTemplates/Deploy.yml
     parameters:
       AzureSubscription: 'SFA-CDH-Dev/Test (962cae10-2950-412a-93e3-d8ae92b17896)'
+      CosmosDbAccountName: $(famSharedCosmosAccount)
       Environment: DEV_FUTUREACCESSMODEL
 
 - stage: DeployTo_SIT
   displayName: Deploy ARM resources to SIT_FUTUREACCESSMODEL environment
-  condition: ne(variables['Build.Reason'], 'PullRequest')
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
   variables:
   - group: dfc-shared-sit
   - group: dfc-futureaccessmodel-shared-sit
@@ -53,4 +54,5 @@ stages:
   - template: JobTemplates/Deploy.yml
     parameters:
       AzureSubscription: 'SFA-CDH-Dev/Test (962cae10-2950-412a-93e3-d8ae92b17896)'
+      CosmosDbAccountName: $(famSharedCosmosAccount)
       Environment: SIT_FUTUREACCESSMODEL

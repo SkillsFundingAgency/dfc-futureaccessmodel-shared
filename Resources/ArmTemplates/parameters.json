@@ -17,6 +17,12 @@
         "aspTier": {
             "value": "__AspTier__"
         },
+        "cosmosDatabaseNeedsCreation": {
+            "value": __CosmosDbDatabaseDoesntExist__
+        },
+        "cosmosDatabaseThroughput": {
+            "value": __CosmosDatabaseThroughput__
+        },
         "environment": {
             "value": "__ReleaseEnvironmentName__"
         }
