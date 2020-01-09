@@ -26,8 +26,8 @@ jobs:
           name: DownloadTestCosmosDbDatabaseDoesntExist
           displayName: 'Download Test-CosmosDbDatabaseDoesntExist script'
           inputs:
-          targetType: 'inline'
-          script: Invoke-WebRequest -Uri $(TestCosmosDbDatabaseDoesntExistScriptUrl) -OutFile $(TestCosmosDbDatabaseDoesntExistScriptFilePath)
+            targetType: 'inline'
+            script: Invoke-WebRequest -Uri $(TestCosmosDbDatabaseDoesntExistScriptUrl) -OutFile $(TestCosmosDbDatabaseDoesntExistScriptFilePath)
         - task: AzurePowerShell@4
           displayName: 'Azure PowerShell Script: Test-CosmosDbDatabaseDoesntExist'
           inputs:
