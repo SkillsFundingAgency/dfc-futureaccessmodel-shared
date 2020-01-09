@@ -54,4 +54,5 @@ stages:
   - template: JobTemplates/Deploy.yml
     parameters:
       AzureSubscription: 'SFA-CDH-Dev/Test (962cae10-2950-412a-93e3-d8ae92b17896)'
+      CosmosDbAccountName: $(famSharedCosmosAccount)
       Environment: SIT_FUTUREACCESSMODEL
