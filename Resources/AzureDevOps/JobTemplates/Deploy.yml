@@ -13,16 +13,28 @@ jobs:
   pool:
     name: 'NCS - CI and CD'
   environment: ${{ parameters.Environment }}
+  variables: 
+  - TestCosmosDbDatabaseDoesntExistScriptUrl: https://raw.githubusercontent.com/SkillsFundingAgency/dfc-devops/master/PSScripts/Test-CosmosDbDatabaseDoesntExist.ps1
+  - TestCosmosDbDatabaseDoesntExistScriptFilePath: $(System.DefaultWorkingDirectory)\Test-CosmosDbDatabaseDoesntExist.ps1
   strategy:
     runOnce:
       deploy:
         steps:
-        - checkout: DfcDevops
+        #TO DO: implement checkout resolution of this issue "Fails when running in a deployment job" should enable checkout - https://docs.microsoft.com/en-us/azure/devops/pipelines/repos/multi-repo-checkout?view=azure-devops#
+        #- checkout: DfcDevops
+        - task: PowerShell@2
+          name: DownloadTestCosmosDbDatabaseDoesntExist
+          displayName: 'Download Test-CosmosDbDatabaseDoesntExist script'
+          inputs:
+          targetType: 'inline'
+          script: Invoke-WebRequest -Uri $(TestCosmosDbDatabaseDoesntExistScriptUrl) -OutFile $(TestCosmosDbDatabaseDoesntExistScriptFilePath)
         - task: AzurePowerShell@4
           displayName: 'Azure PowerShell Script: Test-CosmosDbDatabaseDoesntExist'
           inputs:
             azureSubscription: ${{ parameters.AzureSubscription }}
-            ScriptPath: '$(Agent.BuildDirectory)/dfc-devops/PSScripts/Test-CosmosDbDatabaseDoesntExist.ps1'
+            #TO DO: uncomment when checkout enabled 
+            #ScriptPath: '$(Agent.BuildDirectory)/dfc-devops/PSScripts/Test-CosmosDbDatabaseDoesntExist.ps1'
+            ScriptPath: '$(TestCosmosDbDatabaseDoesntExistScriptFilePath)'
             ScriptArguments: '-ResourceGroup ${{ parameters.ResourceGroup }}  -CosmosDbAccountName ${{ parameters.CosmosDbAccountName }} -DatabaseName "dfc-prime-contractor-areas-db"'
             azurePowerShellVersion: LatestVersion
         - template: AzureDevOpsTemplates/Deploy/StepTemplates/dfc-arm-deploy.yml@DfcDevops
