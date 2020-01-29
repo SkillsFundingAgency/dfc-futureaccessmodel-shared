@@ -61,7 +61,7 @@ stages:
 
 - stage: DeployTo_PP
   displayName: Deploy ARM resources to PP_FUTUREACCESSMODEL environment
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   variables:
   - group: dfc-shared-all
   - group: dfc-futureaccessmodel-shared-all
