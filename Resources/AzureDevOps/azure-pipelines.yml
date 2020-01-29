@@ -3,8 +3,6 @@ variables:
   value: '$(Build.SourcesDirectory)\Resources\ArmTemplates'
 - name: SolutionBaseName
   value: 'Dfc.FutureAccessModel.Shared'
-- group: dfc-shared-all
-- group: dfc-futureaccessmodel-shared-all
 
 resources:
   repositories:
@@ -33,6 +31,8 @@ stages:
   displayName: Deploy ARM resources to DEV_FUTUREACCESSMODEL environment
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
   variables:
+  - group: dfc-shared-all
+  - group: dfc-futureaccessmodel-shared-all
   - group: dfc-shared-dev
   - group: dfc-futureaccessmodel-shared-dev
   - template: VariableTemplates\DevEnvironmentVariables.yml
@@ -47,6 +47,8 @@ stages:
   displayName: Deploy ARM resources to SIT_FUTUREACCESSMODEL environment
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
   variables:
+  - group: dfc-shared-all
+  - group: dfc-futureaccessmodel-shared-all
   - group: dfc-shared-sit
   - group: dfc-futureaccessmodel-shared-sit
   - template: VariableTemplates\SitEnvironmentVariables.yml
@@ -56,3 +58,19 @@ stages:
       AzureSubscription: 'SFA-CDH-Dev/Test (962cae10-2950-412a-93e3-d8ae92b17896)'
       CosmosDbAccountName: $(famSharedCosmosAccount)
       Environment: SIT_FUTUREACCESSMODEL
+
+- stage: DeployTo_PP
+  displayName: Deploy ARM resources to PP_FUTUREACCESSMODEL environment
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  variables:
+  - group: dfc-shared-all
+  - group: dfc-futureaccessmodel-shared-all
+  - group: dfc-shared-pp
+  - group: dfc-futureaccessmodel-shared-pp
+  - template: VariableTemplates\PPEnvironmentVariables.yml
+  jobs:
+  - template: JobTemplates/Deploy.yml
+    parameters:
+      AzureSubscription: 'SFA-DIG-PreProd (931bc9f6-359c-4f65-a753-1ee191a1fd6c)'
+      CosmosDbAccountName: $(famSharedCosmosAccount)
+      Environment: PP_FUTUREACCESSMODEL
