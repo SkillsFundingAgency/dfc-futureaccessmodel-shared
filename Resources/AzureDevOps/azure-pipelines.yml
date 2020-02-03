@@ -35,6 +35,7 @@ stages:
   - group: dfc-futureaccessmodel-shared-all
   - group: dfc-shared-dev
   - group: dfc-futureaccessmodel-shared-dev
+  - template: VariableTemplates\SharedEnvironmentVariables.yml
   - template: VariableTemplates\DevEnvironmentVariables.yml
   jobs:
   - template: JobTemplates/Deploy.yml
@@ -51,6 +52,7 @@ stages:
   - group: dfc-futureaccessmodel-shared-all
   - group: dfc-shared-sit
   - group: dfc-futureaccessmodel-shared-sit
+  - template: VariableTemplates\SharedEnvironmentVariables.yml
   - template: VariableTemplates\SitEnvironmentVariables.yml
   jobs:
   - template: JobTemplates/Deploy.yml
@@ -67,6 +69,7 @@ stages:
   - group: dfc-futureaccessmodel-shared-all
   - group: dfc-shared-pp
   - group: dfc-futureaccessmodel-shared-pp
+  - template: VariableTemplates\SharedEnvironmentVariables.yml
   - template: VariableTemplates\PPEnvironmentVariables.yml
   jobs:
   - template: JobTemplates/Deploy.yml
