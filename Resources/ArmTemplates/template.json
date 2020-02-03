@@ -33,6 +33,9 @@
         },
         "apimProductDisplayName": {
             "type": "string"
+        },
+        "sharedResourceGroup": {
+            "type": "string"
         }
     },
     "variables": {
@@ -152,6 +155,7 @@
             "name": "futureAccessModelApimLogger",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2017-05-10",
+            "resourceGroup": "[parameters('sharedResourceGroup')]",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -172,6 +176,7 @@
             "name": "futureAccessModelApimProduct",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2017-05-10",
+            "resourceGroup": "[parameters('sharedResourceGroup')]",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {

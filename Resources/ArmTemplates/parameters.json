@@ -31,6 +31,9 @@
         },
         "apimServiceName": {
             "value": "__apimServiceName__"
+        },
+        "sharedResourceGroup": {
+            "value": "__SharedResourceGroupName__"
         }
     }
 }

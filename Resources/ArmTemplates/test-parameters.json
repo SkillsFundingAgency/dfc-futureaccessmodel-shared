@@ -25,6 +25,9 @@
         },
         "apimServiceName": {
             "value": "dfc-foo-shared-apim"
+        },
+        "sharedResourceGroup": {
+            "value": "dfc-foo-shared-rg"
         }
     }
 }
