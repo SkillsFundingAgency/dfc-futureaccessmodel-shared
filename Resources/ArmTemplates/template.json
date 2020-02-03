@@ -27,6 +27,12 @@
         },
         "environment": {
             "type": "string"
+        },
+        "apimServiceName": {
+            "type": "string"
+        },
+        "apimProductDisplayName": {
+            "type": "string"
         }
     },
     "variables": {
@@ -141,6 +147,49 @@
                     }
                 }
             }
-        }
+        },
+        {
+            "name": "futureAccessModelApimLogger",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2017-05-10",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('deploymentUrlBase'), 'APIM/apim-logger.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "apimServiceName": {
+                        "value": "[parameters('apimServiceName')]"
+                    },
+                    "productDisplayName": {
+                        "value": "[parameters('apimProductDisplayName')]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "futureAccessModelApimProduct",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2017-05-10",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('deploymentUrlBase'), 'APIM/apim-product.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "allowAnonymousAccess": {
+                        "value": false
+                    },
+                    "apimServiceName": {
+                        "value": "[parameters('apimServiceName')]"
+                    },
+                    "productDisplayName": {
+                        "value": "[parameters('apimProductDisplayName')]"
+                    }
+                }
+            }
+        },
     ]
 }

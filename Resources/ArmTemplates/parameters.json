@@ -25,6 +25,12 @@
         },
         "environment": {
             "value": "__ReleaseEnvironmentName__"
+        },
+        "apimProductDisplayName": {
+            "value": "__ApiProductDisplayName__"
+        },
+        "apimServiceName": {
+            "value": "__apimServiceName__"
         }
     }
 }

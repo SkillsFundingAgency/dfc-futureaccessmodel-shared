@@ -19,6 +19,12 @@
         },
         "environment": {
             "value": "FOO"
+        },
+        "apimProductDisplayName": {
+            "value": "Future Access Model"
+        },
+        "apimServiceName": {
+            "value": "dfc-foo-shared-apim"
         }
     }
 }

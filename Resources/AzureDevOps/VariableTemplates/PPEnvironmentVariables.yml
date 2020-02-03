@@ -9,3 +9,5 @@ variables:
   value: 400
 - name: ReleaseEnvironmentName
   value: PP
+- name: ApiProductDisplayName
+  value: 'Future Access Model'
