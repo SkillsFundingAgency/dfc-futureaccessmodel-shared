@@ -1,0 +1,3 @@
+variables:
+- name: ApiProductDisplayName
+  value: 'Future Access Model'
