@@ -27,7 +27,7 @@
             "value": "dfc-foo-shared-apim"
         },
         "sharedResourceGroup": {
-            "value": "dfc-foo-shared-rg"
+            "value": "dfc-test-template-rg"
         }
     }
 }
