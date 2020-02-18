@@ -43,6 +43,7 @@
         "cosmosDbAccountName": "[concat(variables('resourcePrefix'), '-cdb')]",
         "cosmosDatabaseName": "dfc-prime-contractor-areas-db",
         "deploymentUrlBase": "https://raw.githubusercontent.com/SkillsFundingAgency/dfc-devops/master/ArmTemplates/",
+        "mapsServiceName": "[concat(variables('resourcePrefix'), '-maps')]",
         "resourcePrefix": "[tolower(concat('dfc-', parameters('environment'), '-fam-shared'))]",
         "storageAccountName": "[tolower(concat('dfc', parameters('environment'), 'famsharedstr'))]"
     },
@@ -130,6 +131,23 @@
                     },
                     "useSharedRequestUnits": {
                         "value": true
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "[variables('mapsServiceName')]",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('deploymentUrlBase'),'azure-maps.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "azureMapsName": {
+                        "value": "[variables('mapsServiceName')]"
                     }
                 }
             }
