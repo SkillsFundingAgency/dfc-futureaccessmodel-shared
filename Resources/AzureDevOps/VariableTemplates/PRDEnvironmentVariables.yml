@@ -1,0 +1,11 @@
+variables:
+- name: AspInstances
+  value: 2
+- name: AspSize
+  value: 1
+- name: AspTier
+  value: Standard
+- name: CosmosDatabaseThroughput
+  value: 400
+- name: ReleaseEnvironmentName
+  value: PRD

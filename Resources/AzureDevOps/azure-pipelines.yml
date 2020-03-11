@@ -77,3 +77,20 @@ stages:
       AzureSubscription: 'SFA-DIG-PreProd (931bc9f6-359c-4f65-a753-1ee191a1fd6c)'
       CosmosDbAccountName: $(famSharedCosmosAccount)
       Environment: PP_FUTUREACCESSMODEL
+
+- stage: DeployTo_PRD
+  displayName: Deploy ARM resources to PRD_FUTUREACCESSMODEL environment
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  variables:
+  - group: dfc-shared-all
+  - group: dfc-futureaccessmodel-shared-all
+  - group: dfc-shared-prd
+  - group: dfc-futureaccessmodel-shared-prd
+  - template: VariableTemplates\SharedEnvironmentVariables.yml
+  - template: VariableTemplates\PRDEnvironmentVariables.yml
+  jobs:
+  - template: JobTemplates/Deploy.yml
+    parameters:
+      AzureSubscription: 'SFA-DIG-Prod (6c93f7dc-6c36-4ea6-8de3-3f4574f88027)'
+      CosmosDbAccountName: $(famSharedCosmosAccount)
+      Environment: PRD_FUTUREACCESSMODEL
