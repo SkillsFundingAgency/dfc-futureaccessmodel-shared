@@ -27,9 +27,26 @@ stages:
         SolutionBaseName: $(SolutionBaseName)
         PublishPipelineArtifact: true
 
+- stage: DeployTo_LAB
+  displayName: Deploy ARM resources to LAB_FUTUREACCESSMODEL environment
+  condition: and(eq(dependencies.Build.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
+  variables:
+  - group: dfc-shared-all
+  - group: dfc-futureaccessmodel-shared-all
+  - group: dfc-shared-lab
+  - group: dfc-futureaccessmodel-shared-lab
+  - template: VariableTemplates\SharedEnvironmentVariables.yml
+  - template: VariableTemplates\LabEnvironmentVariables.yml
+  jobs:
+  - template: JobTemplates/Deploy.yml
+    parameters:
+      AzureSubscription: 'SFA-CDH-Dev/Test (962cae10-2950-412a-93e3-d8ae92b17896)'
+      CosmosDbAccountName: $(famSharedCosmosAccount)
+      Environment: LAB_FUTUREACCESSMODEL
+
 - stage: DeployTo_DEV
   displayName: Deploy ARM resources to DEV_FUTUREACCESSMODEL environment
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  condition: and(eq(dependencies.Build.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
   variables:
   - group: dfc-shared-all
   - group: dfc-futureaccessmodel-shared-all
