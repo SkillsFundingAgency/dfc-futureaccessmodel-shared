@@ -28,6 +28,12 @@
         },
         "sharedResourceGroup": {
             "value": "dfc-test-template-rg"
+        },
+        "workspaceName": {
+            "value": "aTestLogAnalyticsAccount"
+        },
+        "workspaceResourceGroup": {
+            "value": "aResourceGroup"
         }
     }
 }
